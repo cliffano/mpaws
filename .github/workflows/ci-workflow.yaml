@@ -1,0 +1,22 @@
+---
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      max-parallel: 1
+      matrix:
+        # Available Python versions: https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
+        python: [ '3.8', '3.10' ]
+    name: python ${{ matrix.python }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python }}
+      - run: make ci
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.STUDIO_GITHUB_TOKEN }}
+          publish_dir: docs
