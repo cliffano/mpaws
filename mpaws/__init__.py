@@ -2,7 +2,11 @@
 """
 mpaws
 =====
-Execute AWS CLI across multiple profiles in one go.
+Python CLI for running an AWS command across multiple profiles in one go.
+
+This CLI provides an easy way for running the same AWS command multiple times,
+each time against a single AWS profile, for each of the profiles specified
+in MPAWS_PROFILES environment variable.
 """
 import subprocess
 import os
@@ -11,8 +15,17 @@ import click
 from .logger import init
 
 def run(args: str) -> None:
-    """Run mpaws by delegating aws commands to subprocesses,
-    one for each AWS profile included in MPAWS_PROFILES environment variable.
+    """Run mpaws by delegating aws command executions to subprocess,
+    once for each AWS profile specified in MPAWS_PROFILES environment variable.
+    The environment variables available when mpaws is executed, will be
+    carried over to each subprocess, with AWS_PROFILE environment variable
+    being set to the value of each profile.
+
+    Standard output and standard error streams from the subprocess will be
+    printed to the respective stdout and stderr without any log prefix, in
+    order to allow user to grep the original output.
+
+    Any error that occurs will be trapped
     """
 
     logger = init()
@@ -22,6 +35,7 @@ def run(args: str) -> None:
 
     if 'MPAWS_PROFILES' in os.environ:
 
+        error_count = 0
         aws_profiles = os.getenv('MPAWS_PROFILES').split(',')
 
         for aws_profile in aws_profiles:
@@ -55,12 +69,16 @@ def run(args: str) -> None:
                     logger.error('Standard error:')
                     print(result.stderr, file=sys.stderr)
                     logger.error(f'Exit code: {result.returncode}')
+                    error_count += 1
 
             except Exception as exception:
                 logger.error(f'An exception occurred: {str(exception)}')
+                error_count += 1
+
+        sys.exit(error_count if error_count >= 1 else 0)
 
     else:
-        logger.warning('Please set MPAWS_PROFILES environment variable' \
+        logger.warning('Please set MPAWS_PROFILES environment variable ' \
                        'with a comma-separated list of AWS profiles to be used')
 
 @click.command()
