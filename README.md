@@ -6,9 +6,9 @@
 <br/>
 
 mpaws
--------
+-----
 
-mpaws is a Python CLI for generating report of SSL certificates from multiple endpoints specified in a YAML configuration.
+mpaws is a Python CLI for running an AWS command across multiple profiles in one go.
 
 Installation
 ------------
@@ -18,36 +18,22 @@ Installation
 Usage
 -----
 
-Create a configuration file, e.g. `mpaws.yaml`:
-
-    ---
-    endpoints:
-      - host: apple.com
-        port: 443
-      - host: google.com
-        port: 443
-      - host: microsoft.com
-        port: 443
+Set an environment variable `MPAWS_PROFILES`, then run `mpaws` command:
  
-And then run `mpaws` CLI and pass the configuration file path:
+    export MPAWS_PROFILES=profile1,profile2,profile3,profile4,profile5
+    mpaws s3 ls
 
-    mpaws --conf-file mpaws.yaml
+The above command will run `aws s3 ls` command for AWS profile `profile1`, `profile2`, up to `profile5`. A bit like this:
+  
+    AWS_PROFILE=profile1 aws s3 ls
+    AWS_PROFILE=profile2 aws s3 ls
 
-It will write the log messages to stdout:
-
-    [mpaws] INFO Loading configuration file mpaws.yaml
-    [mpaws] INFO TODO
+Each run will also carry over the environment variables available when the original `mpaws` command was run.
 
 Configuration
 -------------
 
-Configuration properties:
-
-| Property | Type | Description | Example |
-|----------|------|-------------|---------|
-| `endpoints[]` | Array | A list of one or more endpoints with ... | |
-| `endpoints[].host` | String | The name of the tagset. | `apple.com` |
-| `endpoints[].port` | String | The name of the tagset. | `443` |
+Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured in credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
 Colophon
 --------
