@@ -47,9 +47,9 @@ release-patch:
 
 lint: stage
 	mkdir -p stage/lint/pylint/ docs/lint/pylint/
-	pylint mpaws/*.py # tests/*.py tests-integration/*.py
-	#pylint mpaws/*.py tests/*.py tests-integration/*.py --output-format=pylint_report.CustomJsonReporter > stage/lint/pylint/report.json
-	#pylint_report stage/lint/pylint/report.json -o docs/lint/pylint/index.html
+	pylint mpaws/*.py tests/*.py tests-integration/*.py
+	pylint mpaws/*.py tests/*.py tests-integration/*.py --output-format=pylint_report.CustomJsonReporter > stage/lint/pylint/report.json
+	pylint_report stage/lint/pylint/report.json -o docs/lint/pylint/index.html
 
 complexity: stage
 	wily build mpaws/

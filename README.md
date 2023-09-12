@@ -10,6 +10,8 @@ mpaws
 
 mpaws is a Python CLI for running an AWS command across multiple profiles in one go.
 
+This is a time-saver when you are managing dozens of AWS accounts and need to run the same command across all of them.
+
 Installation
 ------------
 
