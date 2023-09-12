@@ -47,10 +47,12 @@ def run(args: str) -> None:
                 )
 
                 if result.stdout:
+                    logger.info('Standard output:')
                     print(result.stdout, file=sys.stdout)
                     logger.info(f'Exit code: {result.returncode}')
 
                 if result.stderr:
+                    logger.error('Standard error:')
                     print(result.stderr, file=sys.stderr)
                     logger.error(f'Exit code: {result.returncode}')
 
@@ -64,5 +66,5 @@ def run(args: str) -> None:
 @click.command()
 @click.argument('args', nargs=-1)
 def cli(args: str) -> None:
-    """Execute AWS CLI across multiple profiles in one go."""
+    """Run an AWS command across multiple profiles in one go."""
     run(args)
