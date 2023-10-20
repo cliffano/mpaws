@@ -30,23 +30,44 @@ def run(args: str) -> None:
 
     logger = init()
 
+    aws_profiles = []
+    if 'MPAWS_PROFILES' in os.environ:
+        aws_profiles = os.getenv('MPAWS_PROFILES').split(',')
+    else:
+        logger.warning('Please set MPAWS_PROFILES environment variable ' \
+                       'with a comma-separated list of AWS profiles to be used')
+        sys.exit(0)
+
+    aws_regions = []
+    if 'MPAWS_REGIONS' in os.environ:
+        aws_regions = os.getenv('MPAWS_REGIONS').split(',')
+    elif 'AWS_DEFAULT_REGION' in os.environ:
+        aws_regions = [os.getenv('AWS_DEFAULT_REGION')]
+    elif 'AWS_REGION' in os.environ:
+        aws_regions = [os.getenv('AWS_REGION')]
+    else:
+        logger.warning('Please set MPAWS_REGIONS environment variable ' \
+                       'with a comma-separated list of AWS regions to be used')
+        logger.warning('or AWS_DEFAULT_REGION/AWS_REGION environment variable ' \
+                       'with a single AWS region to be used')
+        sys.exit(0)
+
     command_args = ' '.join(args)
     command = f'aws {command_args}'
+    error_count = 0
 
-    if 'MPAWS_PROFILES' in os.environ:
-
-        error_count = 0
-        aws_profiles = os.getenv('MPAWS_PROFILES').split(',')
-
-        for aws_profile in aws_profiles:
+    for aws_profile in aws_profiles:
+        for aws_region in aws_regions:
 
             # Copy the current environment variables, to be used by each subprocess
             env_vars = os.environ.copy()
             # Set AWS_PROFILE environment variable with the current AWS profile
             env_vars['AWS_PROFILE'] = aws_profile
+            env_vars['AWS_REGION'] = aws_region
 
             logger.info('----------------------------------------')
-            logger.info(f'AWS_PROFILE={aws_profile} {command}')
+            logger.info(f'AWS_PROFILE={aws_profile} AWS_DEFAULT_REGION={aws_region} ' \
+                        f'AWS_REGION={aws_region} {command}')
 
             try:
                 # Run the command using subprocess with the modified environment variables
@@ -75,11 +96,9 @@ def run(args: str) -> None:
                 logger.error(f'An exception occurred: {str(exception)}')
                 error_count += 1
 
-        sys.exit(error_count if error_count >= 1 else 0)
+    sys.exit(error_count if error_count >= 1 else 0)
 
-    else:
-        logger.warning('Please set MPAWS_PROFILES environment variable ' \
-                       'with a comma-separated list of AWS profiles to be used')
+
 
 @click.command()
 @click.argument('args', nargs=-1)

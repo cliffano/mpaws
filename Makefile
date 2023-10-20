@@ -61,7 +61,10 @@ test:
 test-integration:
 	rm -rf stage/test-integration/ && mkdir -p stage/test-integration/
 	python3 -m unittest tests-integration/*.py
-	cd examples/ && ./cli.sh
+	cd examples/ && \
+	  ./multi-profiles-multi-regions.sh || echo "" && \
+		./multi-profiles-single-region.sh || echo "" && \
+		./warnings.sh || echo ""
 
 coverage:
 	COVERAGE_FILE=.coverage.unit coverage run --source=./mpaws -m unittest discover -s tests

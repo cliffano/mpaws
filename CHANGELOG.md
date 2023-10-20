@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Add Python 3.12 support
+- Add multi-region support #1
 
 ## 0.10.0 - 2023-09-12
 ### Added
