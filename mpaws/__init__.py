@@ -63,11 +63,14 @@ def run(args: str) -> None:
             env_vars = os.environ.copy()
             # Set AWS_PROFILE environment variable with the current AWS profile
             env_vars['AWS_PROFILE'] = aws_profile
+            # Set AWS_DEFAULT_REGION and AWS_REGION environment variables with the current AWS region
+            env_vars['AWS_DEFAULT_REGION'] = aws_region
             env_vars['AWS_REGION'] = aws_region
 
             logger.info('----------------------------------------')
             logger.info(f'AWS_PROFILE={aws_profile} AWS_DEFAULT_REGION={aws_region} ' \
-                        f'AWS_REGION={aws_region} {command}')
+                        f'AWS_REGION={aws_region}')
+            logger.info(f'{command}')
 
             try:
                 # Run the command using subprocess with the modified environment variables
