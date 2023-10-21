@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Python 3.12 support
 - Add multi-region support #1
 
+### Changed
+- Use Poetry to manage project
+- Switch dependency versioning to allow compatible with version
+
 ## 0.10.0 - 2023-09-12
 ### Added
 - Initial version

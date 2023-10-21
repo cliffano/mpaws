@@ -1,9 +1,11 @@
-version=`yq -r .version conf/info.yaml`
+export POETRY_HOME := /opt/poetry
+export VIRTUAL_ENV := /opt/poetry-venv
+export PATH := ${VIRTUAL_ENV}/bin:${POETRY_HOME}/bin:$(PATH)
 
 ci: clean deps lint test coverage complexity doc package reinstall test-integration
 
 # Exclude complexity due to complexity requiring no uncommited local change
-dev: clean deps lint test coverage doc package reinstall test-integration
+dev: clean deps-extra deps lint test coverage doc package reinstall test-integration
 
 clean:
 	rm -rf stage *.egg-info build dist docs/ mpaws/_pycache_/ mpaws/*.pyc tests/_pycache_/ tests/*.pyc .coverage
@@ -12,11 +14,12 @@ stage:
 	mkdir -p stage stage/ docs/
 
 deps:
-	pip3 install --ignore-installed -r requirements.txt
-	pip3 install --ignore-installed -r requirements-dev.txt
+	python3 -m venv ${POETRY_HOME} && ${POETRY_HOME}/bin/pip install poetry --ignore-installed
+	python3 -m venv ${VIRTUAL_ENV} && PATH=${POETRY_HOME}/bin/:$$PATH poetry install --no-root --compile
 
 deps-extra:
-	apt-get install jq
+	apt-get update
+	apt-get install -y python3-venv
 
 doc: stage
 	rm -rf docs/doc/sphinx/ && mkdir -p docs/doc/sphinx/
@@ -25,25 +28,14 @@ doc: stage
 		make html && \
 		cp -R _build/html/* ../../../docs/doc/sphinx/
 
-# Due to the difference in pre-release handling between Python setuptools and semver (which RTK supports),
-# we have to massage the version number in conf/info.yaml before and after rtk release.
 release-major:
-	sed -i -e 's/rc0/-rc0/' conf/info.yaml
 	rtk release --release-increment-type major
-	sed -i -e 's/-rc0.0/rc0/' conf/info.yaml
-	git commit conf/info.yaml -m "Switch version to Python setuptools versioning scheme"
 
 release-minor:
-	sed -i -e 's/rc0/-rc0/' conf/info.yaml
 	rtk release --release-increment-type minor
-	sed -i -e 's/-rc0.0/rc0/' conf/info.yaml
-	git commit conf/info.yaml -m "Switch version to Python setuptools versioning scheme"
 
 release-patch:
-	sed -i -e 's/rc0/-rc0/' conf/info.yaml
 	rtk release --release-increment-type patch
-	sed -i -e 's/-rc0.0/rc0/' conf/info.yaml
-	git commit conf/info.yaml -m "Switch version to Python setuptools versioning scheme"
 
 lint: stage
 	mkdir -p stage/lint/pylint/ docs/lint/pylint/
@@ -73,7 +65,7 @@ coverage:
 	coverage html
 
 install: package
-	pip3 install dist/mpaws-`yq -r .version conf/info.yaml | sed "s/-/_/g"`-py3-none-any.whl
+	poetry install
 
 uninstall:
 	pip3 uninstall mpaws -y
@@ -83,9 +75,9 @@ reinstall:
 	make clean deps package install
 
 package:
-	python3 setup.py sdist bdist_wheel
+	poetry build
 
 publish:
-	twine upload dist/*
+	poetry publish --username __token__ --password $(PASSWORD)
 
 .PHONY: ci dev clean stage deps deps-extra doc release lint complexity test test-integration coverage install uninstall reinstall package publish
