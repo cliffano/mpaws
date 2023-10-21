@@ -63,7 +63,8 @@ def run(args: str) -> None:
             env_vars = os.environ.copy()
             # Set AWS_PROFILE environment variable with the current AWS profile
             env_vars['AWS_PROFILE'] = aws_profile
-            # Set AWS_DEFAULT_REGION and AWS_REGION environment variables with the current AWS region
+            # Set AWS_DEFAULT_REGION and AWS_REGION environment variables
+            # with the current AWS region
             env_vars['AWS_DEFAULT_REGION'] = aws_region
             env_vars['AWS_REGION'] = aws_region
 
