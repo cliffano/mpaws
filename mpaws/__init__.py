@@ -16,16 +16,20 @@ from .logger import init
 
 def run(args: str) -> None:
     """Run mpaws by delegating aws command executions to subprocess,
-    once for each AWS profile specified in MPAWS_PROFILES environment variable.
-    The environment variables available when mpaws is executed, will be
-    carried over to each subprocess, with AWS_PROFILE environment variable
-    being set to the value of each profile.
+    once for each permutation of AWS profiles specified in MPAWS_PROFILES
+    environment variable, and AWS region specified in either MPAWS_REGIONS,
+    AWS_DEFAULT_REGION, or AWS_REGION environment variable.
+    The other environment variables available when mpaws is executed, will be
+    carried over to each subprocess, with AWS_PROFILE, AWS_DEFAULT_REGION, and
+    AWS_REGION environment variables being set to the value of each permutation
+    of profiles and regions.
 
     Standard output and standard error streams from the subprocess will be
     printed to the respective stdout and stderr without any log prefix, in
     order to allow user to grep the original output.
 
-    Any error that occurs will be trapped
+    Any error that occurs will be trapped and calculated towards the total
+    errors count, and the number of errors is used as the overall exit code.
     """
 
     logger = init()

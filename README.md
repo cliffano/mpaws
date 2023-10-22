@@ -8,7 +8,7 @@
 mpaws
 -----
 
-mpaws is a Python CLI for running an AWS command across multiple profiles in one go.
+mpaws is a Python CLI for running an AWS command across multiple profiles and multiple regions in one go.
 
 This is a time-saver when you are managing dozens of AWS accounts and need to run the same command across all of them.
 
@@ -20,22 +20,47 @@ Installation
 Usage
 -----
 
-Set an environment variable `MPAWS_PROFILES`, then run `mpaws` command:
+Set an environment variable `MPAWS_PROFILES`, and another environment variable `MPAWS_REGIONS`, then run `mpaws` command:
  
-    export MPAWS_PROFILES=profile1,profile2,profile3,profile4,profile5
-    mpaws s3 ls
+    export MPAWS_PROFILES=profile1,profile2,profile3
+    export MPAWS_REGIONS=us-east-1,ap-southeast-2
+    mpaws ec2 describe-instances
 
-The above command will run `aws s3 ls` command for AWS profile `profile1`, `profile2`, up to `profile5`. A bit like this:
+The above command will run `aws ec2 describe-instances` command for each permutation of the AWS profiles and AWS regions, like these:
   
-    AWS_PROFILE=profile1 aws s3 ls
-    AWS_PROFILE=profile2 aws s3 ls
+    AWS_PROFILE=profile1 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances
+    AWS_PROFILE=profile1 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 aws ec2 describe-instances
+    AWS_PROFILE=profile2 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances
+    AWS_PROFILE=profile2 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 aws ec2 describe-instances
+    AWS_PROFILE=profile3 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances
+    AWS_PROFILE=profile3 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 aws ec2 describe-instances
 
-Each run will also carry over the environment variables available when the original `mpaws` command was run.
+Alternatively, you can also run `mpaws` with multiple AWS profiles against a single AWS region. You can do this by setting the environment variable `MPAWS_PROFILES`, then run `mpaws` command:
+ 
+    export MPAWS_PROFILES=profile1,profile2,profile3
+    mpaws ec2 describe-instances
+
+The above command will run `aws ec2 describe-instances` command using each AWS profile, combined with the configured AWS region (either via `AWS_DEFAULT_REGION`, `AWS_REGION`, or [the configured region within the profile definition](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-configure-files-format-profile)).
+
+Here's an example if `AWS_DEFAULT_REGION` is specified with us-east-1 as the value:
+
+    AWS_PROFILE=profile1 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances
+    AWS_PROFILE=profile2 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances-instances
+    AWS_PROFILE=profile3 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances
+
+Note that each run will also carry over the environment variables available from the original `mpaws` command run.
 
 Configuration
 -------------
 
-Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured in credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured in credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). And the regions specified in `MPAWS_REGIONS`, `AWS_DEFAULT_REGION`, `AWS_REGION`, or AWS configuration are valid regions as per [https://aws.amazon.com/about-aws/global-infrastructure/regions_az/].
+
+| Environment Variable | Mandatory | Example |
+|----------------------|-----------|---------|
+| MPAWS_PROFILES | Yes | profile1,profile2,profile3 |
+| MPAWS_REGIONS | No | us-east-1,ap-southeast-2 |
+| AWS_DEFAULT_REGION | No | us-east-1 |
+| AWS_REGION | No | us-east-1 |
 
 Colophon
 --------
