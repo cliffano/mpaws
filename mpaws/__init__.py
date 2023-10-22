@@ -38,8 +38,8 @@ def run(args: str) -> None:
     if 'MPAWS_PROFILES' in os.environ:
         aws_profiles = os.getenv('MPAWS_PROFILES').split(',')
     else:
-        logger.warning('Please set MPAWS_PROFILES environment variable ' \
-                       'with a comma-separated list of AWS profiles to be used')
+        logger.error('Please set MPAWS_PROFILES environment variable ' \
+                     'with a comma-separated list of AWS profiles to be used')
         sys.exit(0)
 
     aws_regions = []
@@ -50,11 +50,9 @@ def run(args: str) -> None:
     elif 'AWS_REGION' in os.environ:
         aws_regions = [os.getenv('AWS_REGION')]
     else:
-        logger.warning('Please set MPAWS_REGIONS environment variable ' \
-                       'with a comma-separated list of AWS regions to be used')
-        logger.warning('or AWS_DEFAULT_REGION/AWS_REGION environment variable ' \
-                       'with a single AWS region to be used')
-        sys.exit(0)
+        logger.info('No MPAWS_REGIONS, AWS_DEFAULT_REGION, or AWS_REGION '\
+                    'environment variable being specified')
+        logger.info('Using region information associated with the profiles')
 
     command_args = ' '.join(args)
     command = f'aws {command_args}'
