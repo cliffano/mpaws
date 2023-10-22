@@ -53,7 +53,7 @@ Note that each run will also carry over the environment variables available from
 Configuration
 -------------
 
-Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured in credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). And the regions specified in `MPAWS_REGIONS`, `AWS_DEFAULT_REGION`, `AWS_REGION`, or AWS configuration are valid regions as per [https://aws.amazon.com/about-aws/global-infrastructure/regions_az/].
+Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured in credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). And the regions specified in `MPAWS_REGIONS`, `AWS_DEFAULT_REGION`, `AWS_REGION`, or AWS configuration are [valid regions](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/).
 
 | Environment Variable | Mandatory | Example |
 |----------------------|-----------|---------|
