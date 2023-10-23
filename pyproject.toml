@@ -7,7 +7,7 @@ no-binary = [ ":none:" ]
 
 [tool.poetry]
 name = "mpaws"
-version = "0.10.1-pre.0"
+version = "0.11.0"
 description = "Execute AWS CLI across multiple profiles and multiple regions in one go"
 license = "Apache-2.0"
 authors = [ "Cliffano Subagio <cliffano@gmail.com>" ]
@@ -15,24 +15,32 @@ readme = "README.md"
 homepage = "https://github.com/cliffano/mpaws"
 repository = "https://github.com/cliffano/mpaws"
 documentation = "https://github.com/cliffano/mpaws"
-keywords = [ "mpaws", "aws", "cli", "multi", "multiple", "profiles", "regions" ]
+keywords = [
+  "mpaws",
+  "aws",
+  "cli",
+  "multi",
+  "multiple",
+  "profiles",
+  "regions"
+]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent"
 ]
-packages = [
-  { include = "mpaws" }
-]
 
-[tool.poetry.scripts]
-mpaws = "mpaws:cli"
+  [[tool.poetry.packages]]
+  include = "mpaws"
 
-[tool.poetry.dependencies]
-python = "^3.8"
-boto3 = "^1.28.44"
-click = "^8.1.3"
-conflog = "^1.5.1"
+  [tool.poetry.scripts]
+  mpaws = "mpaws:cli"
+
+  [tool.poetry.dependencies]
+  python = "^3.8"
+  boto3 = "^1.28.44"
+  click = "^8.1.3"
+  conflog = "^1.5.1"
 
 [tool.poetry.group.test.dependencies]
 coverage = "7.2.4"
