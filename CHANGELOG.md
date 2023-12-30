@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Use PieMaker for Makefile build
+
 ## 0.11.0 - 2023-10-23
 ### Added
 - Add Python 3.12 support
@@ -15,7 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Use Poetry to manage project
 - Switch dependency versioning to allow compatible with version
-- Use PieMaker for Makefile build
 
 ## 0.10.0 - 2023-09-12
 ### Added
