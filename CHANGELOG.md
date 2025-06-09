@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Use PieMaker for Makefile build
 
+### Removed
+- Remove Python 3.8 and 3.9 support
+
 ## 0.11.0 - 2023-10-23
 ### Added
 - Add Python 3.12 support

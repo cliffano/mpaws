@@ -8,15 +8,17 @@ jobs:
       max-parallel: 1
       matrix:
         # Available Python versions: https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
-        python: [ '3.8', '3.10', '3.12' ]
+        python: [ '3.10', '3.11', '3.12', '3.13' ]
     name: python ${{ matrix.python }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - run: sudo make deps-extra-apt
+      - run: sudo make deps-extra-apt
       - run: make ci
-      - uses: peaceiris/actions-gh-pages@v3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.STUDIO_GITHUB_TOKEN }}
           publish_dir: docs
