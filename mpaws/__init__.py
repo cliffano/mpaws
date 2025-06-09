@@ -15,6 +15,20 @@ import click
 from .logger import init
 
 
+def construct_command(args: str) -> str:
+    """Construct the AWS command to be executed based on the provided arguments.
+    The command is prefixed with 'aws' and the arguments are joined into a single
+    string, which will be executed in the subprocess.
+    But if the first arg is 'shell', it will be executed as a shell command
+    without the 'aws' prefix.
+    """
+    if args[0] == "shell":
+        command = " ".join(args[1:])
+    else:
+        command = " ".join(args)
+    return command
+
+
 def run(args: str) -> None:
     """Run mpaws by delegating aws command executions to subprocess,
     once for each permutation of AWS profiles specified in MPAWS_PROFILES
@@ -59,8 +73,7 @@ def run(args: str) -> None:
         )
         logger.info("Using region information associated with the profiles")
 
-    command_args = " ".join(args)
-    command = f"aws {command_args}"
+    command = construct_command(args)
     error_count = 0
 
     for aws_profile in aws_profiles:
