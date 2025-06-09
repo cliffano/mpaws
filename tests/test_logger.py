@@ -3,6 +3,7 @@ import logging
 import unittest
 from mpaws.logger import init
 
+
 class TesLogger(unittest.TestCase):
 
     def test_init(self):
