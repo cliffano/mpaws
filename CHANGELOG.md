@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Add shell command support #2
+- Add --version flag to show version info
 
 ### Changed
 - Use PieMaker for Makefile build

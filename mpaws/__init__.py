@@ -127,6 +127,7 @@ def run(args: str) -> None:
 
 @click.command()
 @click.argument("args", nargs=-1)
+@click.version_option(package_name="certilizer", prog_name="certilizer")
 def cli(args: str) -> None:
     """Run an AWS command across multiple profiles in one go."""
     run(args)
