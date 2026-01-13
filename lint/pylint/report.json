@@ -44,7 +44,7 @@
         "fatal": 0,
         "info": 0,
         "refactor": 0,
-        "statement": 54,
+        "statement": 55,
         "warning": 0
       },
       "tests.test_logger": {
@@ -75,7 +75,7 @@
         "warning": 0
       }
     },
-    "statement": 88,
+    "statement": 89,
     "error": 0,
     "warning": 0,
     "refactor": 0,
