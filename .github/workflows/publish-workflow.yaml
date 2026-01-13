@@ -1,5 +1,7 @@
 ---
 name: Publish
+permissions:
+  contents: read
 'on':
   push:
     tags:
@@ -7,10 +9,14 @@ name: Publish
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
         with:
-          python-version: '3.10'
+          set-safe-directory: ${{ github.workspace }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
       - run: make clean deps package install
       - run: make publish PASSWORD=${{ secrets.PYPI_TOKEN }}

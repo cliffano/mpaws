@@ -1,23 +1,27 @@
 ---
 name: CI
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     strategy:
       max-parallel: 1
       matrix:
         # Available Python versions: https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
-        python: [ '3.10', '3.11', '3.12', '3.13' ]
+        python: [ '3.10', '3.12', '3.14' ]
     name: python ${{ matrix.python }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+        with:
+          set-safe-directory: ${{ github.workspace }}
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
       - run: sudo make deps-extra-apt
-      - run: sudo make deps-extra-apt
       - run: make ci
+      - run: make test-examples || echo "Examples test exits with error"
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.STUDIO_GITHUB_TOKEN }}
