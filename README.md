@@ -1,6 +1,8 @@
 <img align="right" src="https://raw.github.com/cliffano/mpaws/main/avatar.jpg" alt="Avatar"/>
 
 [![Build Status](https://github.com/cliffano/mpaws/workflows/CI/badge.svg)](https://github.com/cliffano/mpaws/actions?query=workflow%3ACI)
+[![Code Scanning Status](https://github.com/cliffano/mpaws/workflows/CodeQL/badge.svg)](https://github.com/cliffano/mpaws/actions?query=workflow%3ACodeQL)
+[![Dependencies Status](https://img.shields.io/librariesio/release/pypi/mpaws)](https://libraries.io/pypi/mpaws)
 [![Security Status](https://snyk.io/test/github/cliffano/mpaws/badge.svg)](https://snyk.io/test/github/cliffano/mpaws)
 [![Published Version](https://img.shields.io/pypi/v/mpaws.svg)](https://pypi.python.org/pypi/mpaws)
 <br/>
@@ -70,7 +72,7 @@ Colophon
 Build reports:
 
 * [Lint report](https://cliffano.github.io/mpaws/lint/pylint/index.html)
-* [Code complexity report](https://cliffano.github.io/mpaws/complexity/wily/index.html)
+* [Code complexity report](https://cliffano.github.io/mpaws/complexity/radon/index.html)
 * [Unit tests report](https://cliffano.github.io/mpaws/test/pytest/index.html)
 * [Test coverage report](https://cliffano.github.io/mpaws/coverage/coverage/index.html)
 * [Integration tests report](https://cliffano.github.io/mpaws/test-integration/pytest/index.html)
