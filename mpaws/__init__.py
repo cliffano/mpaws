@@ -15,21 +15,22 @@ import click
 from .logger import init
 
 
-def construct_command(args: str) -> str:
+def construct_command(args: list) -> str:
     """Construct the AWS command to be executed based on the provided arguments.
-    The command is prefixed with 'aws' and the arguments are joined into a single
+    The command will be prefixed with "aws" and the arguments are joined into a single
     string, which will be executed in the subprocess.
-    But if the first arg is 'shell', it will be executed as a shell command
-    without the 'aws' prefix.
+    But if the first arg is _, it will be executed as a shell command
+    without the "aws" prefix.
     """
-    if args[0] == "shell":
+    if args[0] == "_":
         command = " ".join(args[1:])
     else:
+        args.insert(0, "aws")
         command = " ".join(args)
     return command
 
 
-def run(args: str) -> None:
+def run(args: list) -> None:
     """Run mpaws by delegating aws command executions to subprocess,
     once for each permutation of AWS profiles specified in MPAWS_PROFILES
     environment variable, and AWS region specified in either MPAWS_REGIONS,
@@ -90,10 +91,10 @@ def run(args: str) -> None:
 
             logger.info("----------------------------------------")
             logger.info(
-                f"AWS_PROFILE={aws_profile} AWS_DEFAULT_REGION={aws_region} "
+                f"Environment variables: AWS_PROFILE={aws_profile} AWS_DEFAULT_REGION={aws_region} "
                 f"AWS_REGION={aws_region}"
             )
-            logger.info(f"{command}")
+            logger.info(f"Command: {command}")
 
             try:
                 # Run the command using subprocess with the modified environment variables
@@ -128,6 +129,6 @@ def run(args: str) -> None:
 @click.command()
 @click.argument("args", nargs=-1)
 @click.version_option(package_name="certilizer", prog_name="certilizer")
-def cli(args: str) -> None:
+def cli(args: tuple) -> None:
     """Run an AWS command across multiple profiles in one go."""
-    run(args)
+    run(list(args))

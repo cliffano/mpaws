@@ -52,6 +52,25 @@ Here's an example if `AWS_DEFAULT_REGION` is specified with us-east-1 as the val
 
 Note that each run will also carry over the environment variables available from the original `mpaws` command run.
 
+### Custom command
+
+If you need to run a custom command using each profile, you can use the `_` (underscore) character which will tell mpaws to run the custom command AS-IS.
+
+Here's an example:
+
+    export MPAWS_PROFILES=profile1,profile2,profile3
+    export MPAWS_REGIONS=us-east-1,ap-southeast-2
+    mpaws _ echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+
+Which will run the custom command against the permutation of the AWS profiles and AWS regions:
+
+    AWS_PROFILE=profile1 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+    AWS_PROFILE=profile1 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+    AWS_PROFILE=profile2 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+    AWS_PROFILE=profile2 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+    AWS_PROFILE=profile3 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+    AWS_PROFILE=profile3 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
+
 Configuration
 -------------
 

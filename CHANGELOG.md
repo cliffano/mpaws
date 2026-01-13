@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- Add shell command support #2
+- Add custom command support #2
 - Add --version flag to show version info
 
 ### Changed
