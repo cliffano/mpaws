@@ -4,8 +4,6 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: write
     strategy:
       max-parallel: 1
       matrix:

@@ -1,3 +1,13 @@
 ---
 author: Cliffano Subagio
 package_name: mpaws
+generator:
+  component: python-cli
+  inputs:
+    project_id: mpaws
+    project_name: mpaws
+    project_desc: Python CLI for running an AWS command across multiple profiles and multiple regions in one go
+    author_name: Cliffano Subagio
+    author_email: cliffano@gmail.com
+    github_id: cliffano
+    github_repo: mpaws

@@ -3,8 +3,6 @@ name: Release Patch
 on: [workflow_dispatch]
 jobs:
   build:
-    permissions:
-      contents: write
     runs-on: ubuntu-24.04
     steps:
       - uses: cliffano/release-action@v1.3.0
