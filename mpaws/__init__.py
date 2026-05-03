@@ -8,6 +8,7 @@ This CLI provides an easy way for running the same AWS command multiple times,
 each time against a single AWS profile, for each of the profiles specified
 in MPAWS_PROFILES environment variable.
 """
+
 import subprocess
 import os
 import sys
