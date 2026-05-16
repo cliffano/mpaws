@@ -1,26 +1,22 @@
-<img align="right" src="https://raw.github.com/cliffano/mpaws/main/avatar.jpg" alt="Avatar"/>
+![Avatar](avatar.jpg)
 
 [![Build Status](https://github.com/cliffano/mpaws/workflows/CI/badge.svg)](https://github.com/cliffano/mpaws/actions?query=workflow%3ACI)
 [![Code Scanning Status](https://github.com/cliffano/mpaws/workflows/CodeQL/badge.svg)](https://github.com/cliffano/mpaws/actions?query=workflow%3ACodeQL)
 [![Dependencies Status](https://img.shields.io/librariesio/release/pypi/mpaws)](https://libraries.io/pypi/mpaws)
 [![Security Status](https://snyk.io/test/github/cliffano/mpaws/badge.svg)](https://snyk.io/test/github/cliffano/mpaws)
 [![Published Version](https://img.shields.io/pypi/v/mpaws.svg)](https://pypi.python.org/pypi/mpaws)
-<br/>
 
-mpaws
------
+# mpaws
 
 mpaws is a Python CLI for running an AWS command across multiple profiles and multiple regions in one go.
 
 This is a time-saver when you are managing dozens of AWS accounts and need to run the same command across all of them.
 
-Installation
-------------
+## Installation
 
     pip3 install mpaws
 
-Usage
------
+## Usage
 
 Set an environment variable `MPAWS_PROFILES`, and another environment variable `MPAWS_REGIONS`, then run `mpaws` command:
  
@@ -71,8 +67,7 @@ Which will run the custom command against the permutation of the AWS profiles an
     AWS_PROFILE=profile3 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
     AWS_PROFILE=profile3 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 echo \$\{AWS_PROFILE\} \$\{AWS_REGION\}
 
-Configuration
--------------
+## Configuration
 
 Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured in credential file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html). And the regions specified in `MPAWS_REGIONS`, `AWS_DEFAULT_REGION`, `AWS_REGION`, or AWS configuration are [valid regions](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/).
 
@@ -83,8 +78,7 @@ Ensure that the profiles specified in `MPAWS_PROFILES` are already [configured i
 | AWS_DEFAULT_REGION | No | us-east-1 |
 | AWS_REGION | No | us-east-1 |
 
-Colophon
---------
+## Colophon
 
 [Developer's Guide](https://cliffano.github.io/developers_guide.html#python)
 
