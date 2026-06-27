@@ -7,7 +7,7 @@ cffi==2.0.0 ; python_version >= "3.10" and python_version < "4.0" and platform_m
 charset-normalizer==3.4.7 ; python_version >= "3.10" and python_version < "4.0"
 click==8.4.2 ; python_version >= "3.10" and python_version < "4.0"
 colorama==0.4.6 ; python_version >= "3.10" and python_version < "4.0" and platform_system == "Windows"
-conflog==2.1.1 ; python_version >= "3.10" and python_version < "4.0"
+conflog==2.1.2 ; python_version >= "3.10" and python_version < "4.0"
 cryptography==49.0.0 ; python_version >= "3.10" and python_version < "4.0" and platform_machine != "ppc64le" and platform_machine != "s390x" and sys_platform == "linux"
 docutils==0.21.2 ; python_version >= "3.10" and python_version < "4.0"
 id==1.6.1 ; python_version >= "3.10" and python_version < "4.0"

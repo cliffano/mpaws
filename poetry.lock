@@ -462,14 +462,14 @@ markers = {main = "platform_system == \"Windows\"", dev = "platform_system == \"
 
 [[package]]
 name = "conflog"
-version = "2.1.1"
+version = "2.1.2"
 description = "Python logging setup via environment variables and configuration files"
 optional = false
 python-versions = "<4.0,>=3.10"
 groups = ["main"]
 files = [
-    {file = "conflog-2.1.1-py3-none-any.whl", hash = "sha256:58bda20af946c4b798a38a3fa1132fd206523993ad82b84200c61f9c4c373ef7"},
-    {file = "conflog-2.1.1.tar.gz", hash = "sha256:f1b41f81b96d7189dc20e9584dc6a8b80d95faf490ffd2b10d4fd74599569726"},
+    {file = "conflog-2.1.2-py3-none-any.whl", hash = "sha256:96bc5cbb9ca63bf38bab046f326cb1ceafbba1b8807c92a57248197f2d8fe8ab"},
+    {file = "conflog-2.1.2.tar.gz", hash = "sha256:66aa7af8c866b4da36460378ef2b554181db9fe1e7d26405e5510990bcbcc47f"},
 ]
 
 [package.dependencies]
@@ -2290,4 +2290,4 @@ type = ["pytest-mypy (>=1.0.1) ; platform_python_implementation != \"PyPy\""]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "c8ac7c6f7e3558bc0e76b61e65dacd65dc83af361fab1a060f58b36f729c22ec"
+content-hash = "23c81682a52f5e37dc5653b08c0c33a008608c9ffad934ac4fe2d93e0e9dcfcc"

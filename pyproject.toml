@@ -40,7 +40,7 @@ classifiers = [
   python = "^3.10"
   boto3 = "~1.43.36"
   click = "~8.4.2"
-  conflog = "~2.1.1"
+  conflog = "~2.1.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "~26.5.1"
