@@ -1,12 +1,9 @@
 # pylint: disable=too-many-locals,broad-exception-caught
-"""
-mpaws
-=====
-Python CLI for running an AWS command across multiple profiles in one go.
+"""Python CLI for running an AWS command across multiple profiles in one go.
 
 This CLI provides an easy way for running the same AWS command multiple times,
 each time against a single AWS profile, for each of the profiles specified
-in MPAWS_PROFILES environment variable.
+in the ``MPAWS_PROFILES`` environment variable.
 """
 
 import subprocess
@@ -18,10 +15,16 @@ from .logger import init
 
 def construct_command(args: list) -> str:
     """Construct the AWS command to be executed based on the provided arguments.
-    The command will be prefixed with "aws" and the arguments are joined into a single
-    string, which will be executed in the subprocess.
-    But if the first arg is _, it will be executed as a shell command
-    without the "aws" prefix.
+
+    The command is prefixed with ``aws`` and the arguments are joined into a
+    single string, which will be executed in the subprocess. However, if the
+    first argument is ``_``, the remaining arguments are executed as a shell
+    command without the ``aws`` prefix.
+
+    :param args: Command arguments, as passed on the CLI invocation.
+    :type args: list
+    :returns: The command string ready to be executed in a subprocess.
+    :rtype: str
     """
     if args[0] == "_":
         command = " ".join(args[1:])
@@ -32,21 +35,30 @@ def construct_command(args: list) -> str:
 
 
 def run(args: list) -> None:
-    """Run mpaws by delegating aws command executions to subprocess,
-    once for each permutation of AWS profiles specified in MPAWS_PROFILES
-    environment variable, and AWS region specified in either MPAWS_REGIONS,
-    AWS_DEFAULT_REGION, or AWS_REGION environment variable.
-    The other environment variables available when mpaws is executed, will be
-    carried over to each subprocess, with AWS_PROFILE, AWS_DEFAULT_REGION, and
-    AWS_REGION environment variables being set to the value of each permutation
-    of profiles and regions.
+    """Run mpaws by delegating AWS command executions to subprocess.
 
-    Standard output and standard error streams from the subprocess will be
+    The command is executed once for each permutation of AWS profiles
+    specified in the ``MPAWS_PROFILES`` environment variable, and AWS region
+    specified in either ``MPAWS_REGIONS``, ``AWS_DEFAULT_REGION``, or
+    ``AWS_REGION`` environment variable.
+
+    The other environment variables available when mpaws is executed are
+    carried over to each subprocess, with ``AWS_PROFILE``,
+    ``AWS_DEFAULT_REGION``, and ``AWS_REGION`` environment variables being
+    set to the value of each permutation of profiles and regions.
+
+    Standard output and standard error streams from the subprocess are
     printed to the respective stdout and stderr without any log prefix, in
-    order to allow user to grep the original output.
+    order to allow the user to grep the original output.
 
-    Any error that occurs will be trapped and calculated towards the total
-    errors count, and the number of errors is used as the overall exit code.
+    Any error that occurs is trapped and counted towards the total error
+    count, and the number of errors is used as the overall exit code.
+
+    :param args: Command arguments, as passed on the CLI invocation.
+    :type args: list
+    :returns: This function does not return; it terminates the process via
+        :func:`sys.exit` using the accumulated error count as the exit code.
+    :rtype: None
     """
 
     logger = init()
@@ -131,5 +143,14 @@ def run(args: list) -> None:
 @click.argument("args", nargs=-1)
 @click.version_option(package_name="certilizer", prog_name="certilizer")
 def cli(args: tuple) -> None:
-    """Run an AWS command across multiple profiles in one go."""
+    """Run an AWS command across multiple profiles in one go.
+
+    This is the entry point registered as the ``mpaws`` console script; it
+    forwards the CLI arguments to :func:`run`.
+
+    :param args: Command arguments captured by Click from the CLI invocation.
+    :type args: tuple
+    :returns: None
+    :rtype: None
+    """
     run(list(args))
