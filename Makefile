@@ -4,7 +4,7 @@
 ################################################################
 
 # PieMaker info
-PIEMAKER_VERSION = 2.13.0
+PIEMAKER_VERSION = 2.13.1
 
 UPDATE_GH_ID = cliffano
 UPDATE_MAKEFILE = piemaker
@@ -134,7 +134,7 @@ uninstall:
 reinstall: uninstall install
 
 publish:
-	$(call python_venv,poetry publish $(if $(PASSWORD),--username __token__ --password $(PASSWORD)))
+	$(call python_venv,twine upload $(if $(PASSWORD),--username __token__ --password $(PASSWORD)) dist/*)
 
 ################################################################
 # Documentation targets

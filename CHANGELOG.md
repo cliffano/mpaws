@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Fix publishing to Pypi with trusted publishing via PieMaker 2.13.1
+
 ## 1.1.0 - 2026-09-14
 ### Changed
 - Upgrade PieMaker to 2.13.0
