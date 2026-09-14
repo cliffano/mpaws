@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Fixed
-- Pass AWS command flags (e.g. `--query`) through to the AWS command instead of erroring out as unknown mpaws flags [#3]
-- Fix `--version` flag looking up the wrong package name
+- Pass AWS command flags (e.g. --query) through to the AWS command instead of erroring out as unknown mpaws flags [#3]
+- Fix --version flag looking up the wrong package name
 
 ### Changed
 - Upgrade PieMaker to 2.13.0
