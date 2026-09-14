@@ -5,7 +5,7 @@
 <!-- BEGIN:BADGES -->
 [![Build Status](https://github.com/cliffano/mpaws/workflows/CI/badge.svg)](https://github.com/cliffano/mpaws/actions?query=workflow%3ACI)
 [![Code Scanning Status](https://github.com/cliffano/mpaws/workflows/CodeQL/badge.svg)](https://github.com/cliffano/mpaws/actions?query=workflow%3ACodeQL)
-[![Dependencies Status](https://img.shields.io/librariesio/release/pypi/mpaws)](https://libraries.io/github/cliffano/mpaws)
+[![Dependencies Status](https://img.shields.io/librariesio/release/pypi/mpaws)](https://libraries.io/npm/mpaws)
 [![Security Status](https://snyk.io/test/github/cliffano/mpaws/badge.svg)](https://snyk.io/test/github/cliffano/mpaws)
 [![Published Version](https://img.shields.io/pypi/v/mpaws.svg)](https://pypi.python.org/pypi/mpaws)
 <!-- END:BADGES -->
