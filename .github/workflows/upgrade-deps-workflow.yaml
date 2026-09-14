@@ -5,21 +5,17 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           token: ${{ secrets.STUDIO_GITHUB_TOKEN }}
           set-safe-directory: ${{ github.workspace }}
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.14'
-      - run: git config --global user.email 'pakkunbot'
-      - run: git config --global user.name 'blah+pakkun@cliffano.com'
       - run: make clean deps deps-upgrade
       - run: sudo make deps-extra-apt
       - run: make ci
-      - run: git commit -am 'Upgrade dependencies to latest versions'
-      - uses: ad-m/github-push-action@v1.1.0
+      - uses: cliffano/save-changes-action@v2.0.0
         with:
-          tags: false
+          message: 'Upgrade dependencies to latest versions'
           github_token: ${{ secrets.STUDIO_GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
