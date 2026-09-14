@@ -65,17 +65,26 @@
         "statement": 0,
         "warning": 0
       },
-      "test_init": {
+      "tests.test_mpaws": {
         "convention": 0,
         "error": 0,
         "fatal": 0,
         "info": 0,
         "refactor": 0,
-        "statement": 23,
+        "statement": 121,
+        "warning": 0
+      },
+      "test_cli": {
+        "convention": 0,
+        "error": 0,
+        "fatal": 0,
+        "info": 0,
+        "refactor": 0,
+        "statement": 102,
         "warning": 0
       }
     },
-    "statement": 89,
+    "statement": 289,
     "error": 0,
     "warning": 0,
     "refactor": 0,
