@@ -43,3 +43,9 @@ printf "Run command with custom shell command:\n"
 MPAWS_PROFILES=profile1,profile2,profile3 \
   AWS_REGION=us-east-1 \
   mpaws _ echo \$\{AWS_REGION\}
+
+printf "\n\n========================================\n"
+printf "Run AWS command with flags, the flags are passed through to the AWS command:\n"
+MPAWS_PROFILES=profile1,profile2,profile3 \
+  AWS_REGION=us-east-1 \
+  mpaws ec2 describe-instances --filters Name=instance-state-name,Values=running --output json

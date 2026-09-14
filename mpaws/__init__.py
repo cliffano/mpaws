@@ -139,14 +139,22 @@ def run(args: list) -> None:
     sys.exit(error_count if error_count >= 1 else 0)
 
 
-@click.command()
-@click.argument("args", nargs=-1)
-@click.version_option(package_name="certilizer", prog_name="certilizer")
+@click.command(context_settings={"ignore_unknown_options": True})
+@click.argument("args", nargs=-1, type=click.UNPROCESSED)
+@click.version_option(package_name="mpaws", prog_name="mpaws")
 def cli(args: tuple) -> None:
     """Run an AWS command across multiple profiles in one go.
 
     This is the entry point registered as the ``mpaws`` console script; it
     forwards the CLI arguments to :func:`run`.
+
+    ``args`` is captured with ``ignore_unknown_options`` enabled and typed as
+    :data:`click.UNPROCESSED`, so flags meant for the underlying ``aws``
+    command (or for a ``_``-prefixed shell command), such as
+    ``--query`` or ``--flag1 value1``, are passed through untouched instead
+    of being rejected as unknown mpaws options. mpaws' own ``--help`` and
+    ``--version`` flags, being explicitly declared options, are still
+    honoured.
 
     :param args: Command arguments captured by Click from the CLI invocation.
     :type args: tuple
