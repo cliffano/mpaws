@@ -25,7 +25,7 @@ pip3 install mpaws
 ## Usage
 
 Set an environment variable `MPAWS_PROFILES`, and another environment variable `MPAWS_REGIONS`, then run `mpaws` command:
- 
+
 ```javascript
 export MPAWS_PROFILES=profile1,profile2,profile3
 export MPAWS_REGIONS=us-east-1,ap-southeast-2
@@ -33,7 +33,7 @@ mpaws ec2 describe-instances
 ```
 
 The above command will run `aws ec2 describe-instances` command for each permutation of the AWS profiles and AWS regions, like these:
-  
+
 ```shell
 AWS_PROFILE=profile1 AWS_DEFAULT_REGION=us-east-1 AWS_REGION=us-east-1 aws ec2 describe-instances
 AWS_PROFILE=profile1 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2 aws ec2 describe-instances
@@ -44,7 +44,7 @@ AWS_PROFILE=profile3 AWS_DEFAULT_REGION=ap-southeast-2 AWS_REGION=ap-southeast-2
 ```
 
 Alternatively, you can also run `mpaws` with multiple AWS profiles against a single AWS region. You can do this by setting the environment variable `MPAWS_PROFILES`, then run `mpaws` command:
- 
+
 ```javascript
 export MPAWS_PROFILES=profile1,profile2,profile3
 mpaws ec2 describe-instances
