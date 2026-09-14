@@ -38,24 +38,24 @@ classifiers = [
 
   [tool.poetry.dependencies]
   python = "^3.10"
-  boto3 = "~1.43.36"
-  click = "~8.4.2"
+  boto3 = "~1.43.93"
+  click = "~8.5.0"
   conflog = "~2.1.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "~26.5.1"
-twine = "~6.2.0"
-wheel = "~0.47.0"
+twine = "~7.0.0"
+wheel = "~0.48.0"
 
 [tool.poetry.group.test.dependencies]
-coverage = "~7.14.3"
+coverage = "~7.16.1"
 numpy = "1.26.4"
-pylint = "~4.0.6"
+pylint = "~4.0.8"
 pytest = "~9.1.1"
 radon = "~6.0.1"
 
 [tool.poetry.group.doc.dependencies]
-ansi2html = "~1.9.2"
+ansi2html = "~1.9.5"
 pylint-report = "~2.4.2"
 pytest-html = "~4.2.0"
 Sphinx = "8.1.3"
